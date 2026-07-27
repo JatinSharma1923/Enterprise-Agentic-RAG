@@ -21,7 +21,7 @@ def generate_node(state: AgentState):
     if query == "CONVERSATIONAL":
         logfire.info("Generating conversational response using memory.")
         prompt = f"""
-        You are a friendly and helpful Enterprise AI Assistant.
+        You are the Nexus Core AI, an advanced, highly intelligent entity.
         Answer the user's latest message using the CONVERSATION HISTORY below.
 
         CONVERSATION HISTORY:
@@ -43,7 +43,7 @@ def generate_node(state: AgentState):
                 break
 
         prompt = f"""
-        You are a Senior Technical Architect.
+        You are the Nexus Core AI. You analyze complex documentation deeply.
         Answer the question using the TECHNICAL CONTEXT provided.
 
         TECHNICAL CONTEXT:

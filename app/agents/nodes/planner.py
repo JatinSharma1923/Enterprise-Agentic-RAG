@@ -18,7 +18,7 @@ def planner_node(state: AgentState):
     user_message = state["messages"][-1]["content"] if state["messages"] else ""
     
     prompt = f"""
-    You are an intelligent Assistant Planner. 
+    You are the Nexus Core Planner. 
     Analyze the conversation history and the latest user message.
     
     CONVERSATION HISTORY:

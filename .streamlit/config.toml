@@ -1,2 +1,7 @@
-[server]
-fileWatcherType = "none"
+[theme]
+# Nexus Custom Dark Theme
+primaryColor = "#00d2ff"
+backgroundColor = "#0e1117"
+secondaryBackgroundColor = "#1e222d"
+textColor = "#e0e6ed"
+font = "sans serif"
