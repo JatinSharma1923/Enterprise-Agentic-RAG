@@ -108,10 +108,10 @@ LOGFIRE_TOKEN = ""
 LANGSMITH_TRACING = true
 LANGSMITH_ENDPOINT = https://api.smith.langchain.com
 LANGSMITH_API_KEY = ""
-LANGSMITH_PROJECT = ""
+LANGSMITH_PROJECT = "Enterprise Rag System"
 
 # Streamlit UI → FastAPI
-BACKEND_URL = ""                    # e.g. http://localhost:8000
+BACKEND_URL = "http://localhost:8000"                    # e.g. http://localhost:8000
 
 # Eval judge LLM (keep separate from main key to avoid rate-limiting the live app)
 JUDGE_GROQ = ""
