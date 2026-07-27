@@ -1,30 +1,34 @@
-# Nexus Document Engine
+# 🌌 Nexus Document Engine
 
-A production-grade, enterprise-level RAG system built with **LangGraph**, **Portkey LLM Gateway**, and **Gemini Embeddings**. The system distinguishes between technical "True Data" and random "Noisy Data" using semantic re-ranking, history-aware planning, and NeMo Guardrails for input/output safety.
+> **An advanced, production-grade RAG (Retrieval-Augmented Generation) system built to intelligently parse, analyze, and retrieve complex documentation.**
 
-## Key Features
-
-- **Agentic Intelligence**: LangGraph for cyclic reasoning, multi-step planning, and conversation memory.
-- **Guardrails**: NeMo Guardrails gate blocks off-topic, jailbreak, and injection inputs before any retrieval.
-- **LLM Gateway**: Portkey routes all LLM calls with automatic fallback between primary and backup Groq keys.
-- **Enterprise Search**: Qdrant Cloud for high-performance vector search + FlashRank for local semantic reranking.
-- **Gemini Embeddings**: Google `gemini-embedding-2-preview` (3072-dim) via `langchain-google-genai`.
-- **Local Document Parsing**: PDF, HTML, TXT, DOCX, PPTX parsed entirely on-device — no external OCR service.
-- **Observability**: Full trace nesting with **Pydantic Logfire** and **LangSmith** across every agent node.
-- **Evaluation Suite**: RAGAS-powered eval pipeline (6 metrics) with a dedicated Streamlit demo app.
+The **Nexus Document Engine** leverages **LangGraph**, **Portkey LLM Gateway**, and **Gemini Embeddings** to provide an intelligent, agentic chat experience. It is designed to distinguish between highly technical data and conversational inputs using semantic re-ranking, history-aware planning, and NeMo Guardrails to ensure input and output safety.
 
 ---
 
-## Agent Intelligence Flow
+## ✨ Key Features
+
+- **Agentic Intelligence**: Powered by LangGraph for cyclic reasoning, multi-step planning, and persistent conversational memory.
+- **Strict Guardrails**: NeMo Guardrails automatically gate blocks off-topic prompts, jailbreak attempts, and injection inputs before retrieval even begins.
+- **LLM Gateway Integration**: Portkey securely routes all LLM calls, providing automatic fallbacks between primary and backup inference keys (e.g., Groq).
+- **High-Performance Search**: Qdrant Cloud handles high-speed vector search, while **FlashRank** provides zero-latency local semantic reranking.
+- **Gemini Embeddings**: Utilizes Google's `gemini-embedding-2-preview` (3072-dim) via `langchain-google-genai` for deep semantic understanding.
+- **Local Document Parsing**: PDF, HTML, TXT, DOCX, and PPTX files are parsed entirely on-device—no external OCR services required.
+- **Deep Observability**: Full trace nesting and observability with **Pydantic Logfire** and **LangSmith** across every single agent node.
+- **Evaluation Suite**: Includes a RAGAS-powered evaluation pipeline (measuring 6 key metrics) with a dedicated Streamlit demo application.
+
+---
+
+## 🧠 Agent Intelligence Flow
 
 ```mermaid
 graph TD
-    User((User)) --> UI[Streamlit UI]
+    User((🧑‍🚀 User)) --> UI[🌌 Nexus Streamlit UI]
     UI --> API[FastAPI /query]
     API --> Guard{NeMo Guardrails}
     Guard -->|Blocked| UI
-    Guard -->|Pass| Planner{Planner Node}
-    Planner -->|Conversational| Responder[Responder Node]
+    Guard -->|Pass| Planner{Nexus Planner Node}
+    Planner -->|Conversational| Responder[Nexus Responder Node]
     Planner -->|Technical| Retriever[Retriever Node]
     Retriever --> Reranker[FlashRank Local Reranker]
     Reranker --> Responder
@@ -34,13 +38,13 @@ graph TD
 
 ---
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```text
 ├── app/
 │   ├── agents/
-│   │   └── nodes/       # Planner, Retriever, Responder LangGraph nodes
-│   ├── gateway/         # Portkey LLM gateway — primary + fallback Groq routing
+│   │   └── nodes/       # Nexus Planner, Retriever, and Responder LangGraph nodes
+│   ├── gateway/         # Portkey LLM gateway — primary + fallback routing
 │   ├── guardrails/      # NeMo Guardrails input/output filtering
 │   ├── ingestion/
 │   │   ├── chunking/    # Paragraph-based text splitter (1500 char max)
@@ -49,33 +53,33 @@ graph TD
 │   │   └── retrieval/   # Gemini embeddings + Qdrant search + FlashRank reranking
 │   ├── config.py        # Centralized environment variable management
 │   └── main.py          # FastAPI entrypoint — guardrails gate + /query endpoint
-├── evals/               # RAGAS evaluation suite + Streamlit 3-tab demo
-├── ui/                  # Streamlit chat interface with reasoning step transparency
+├── evals/               # RAGAS evaluation suite + Streamlit demo
+├── ui/                  # Sleek Streamlit chat interface with reasoning transparency
 ├── processed_data/      # Auto-generated — parsed & chunked JSON output per document
-├── docs/                # Architectural and operational guides (11 docs)
-├── DATA/                # Sample datasets (True vs Noisy documentation)
+├── docs/                # Architectural and operational guides
+├── DATA/                # Place your proprietary datasets here for ingestion
 └── requirements.txt     # Pinned dependencies
 ```
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Orchestration | LangChain + LangGraph |
-| LLMs | Groq (Llama 3.3 70B) via **Portkey** gateway |
-| Guardrails | NeMo Guardrails |
-| Vector DB | Qdrant Cloud |
-| Reranking | FlashRank (local, zero-latency) |
-| Embeddings | Gemini `gemini-embedding-2-preview` (3072-dim) |
-| Document Parsing | pypdf + pdfplumber (local, no OCR service) |
-| Observability | Pydantic Logfire + LangSmith |
-| Evaluation | RAGAS + custom Tool Correctness (Jaccard) |
+| **Orchestration** | LangChain + LangGraph |
+| **LLMs** | Groq (Llama 3.3 70B) via **Portkey** gateway |
+| **Guardrails** | NeMo Guardrails |
+| **Vector DB** | Qdrant Cloud |
+| **Reranking** | FlashRank (local, zero-latency) |
+| **Embeddings** | Gemini `gemini-embedding-2-preview` (3072-dim) |
+| **Document Parsing** | pypdf + pdfplumber (local, no OCR service) |
+| **Observability** | Pydantic Logfire + LangSmith |
+| **Evaluation** | RAGAS + custom Tool Correctness (Jaccard) |
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### 1. Install dependencies
 
@@ -87,69 +91,46 @@ pip install -r requirements.txt
 
 ### 2. Configure environment
 
-Create a `.env` file with the following keys:
+Copy the `.env.example` file to a new `.env` file and populate your keys:
 
-```env
-# Groq Reasoning Engine (Llama 3.3)
-GROQ_API_KEY = ""
-GROQ_FALLBACK_API_KEY = ""          # second Groq key, or same as primary
-
-# Portkey LLM Gateway
-PORTKEY_API_KEY = ""
-
-# Qdrant Vector DB
-QDRANT_API_KEY = ""
-QDRANT_CLUSTER_ENDPOINT = ""        # e.g. https://your-cluster.cloud.qdrant.io:6333
-
-# Pydantic Logfire Observability
-LOGFIRE_TOKEN = ""
-
-# LangSmith
-LANGSMITH_TRACING = true
-LANGSMITH_ENDPOINT = https://api.smith.langchain.com
-LANGSMITH_API_KEY = ""
-LANGSMITH_PROJECT = "Enterprise Rag System"
-
-# Streamlit UI → FastAPI
-BACKEND_URL = "http://localhost:8000"                    # e.g. http://localhost:8000
-
-# Eval judge LLM (keep separate from main key to avoid rate-limiting the live app)
-JUDGE_GROQ = ""
-
-# Gemini Embeddings
-GEMINI_API_KEY = ""
+```powershell
+cp .env.example .env
 ```
+*(Open `.env` and add your Groq, Portkey, Qdrant, Logfire, LangSmith, and Gemini API keys).*
 
 ### 3. Run data ingestion
 
-Parses all documents in `DATA/`, chunks them, saves metadata to `processed_data/`, and indexes vectors into Qdrant.
+Place your proprietary documents into the `DATA/` directory. Then parse, chunk, and index the vectors into Qdrant:
 
 ```powershell
 python -m app.ingestion.processor DATA --wipe
 ```
 
-> Pass `--wipe` to drop and recreate the Qdrant collection. Omit it to append to an existing collection.
+> **Note:** Pass `--wipe` to drop and recreate the Qdrant collection. Omit it to append to an existing collection.
 
-### 4. Launch the app
+### 4. Launch the Nexus Platform
 
 ```powershell
 # Terminal 1 — FastAPI backend
+.\tenvv\Scripts\activate
 uvicorn app.main:app --reload --port 8000
 
-# Terminal 2 — Streamlit UI
+# Terminal 2 — Nexus Streamlit UI
+.\tenvv\Scripts\activate
 streamlit run ui/app.py
 ```
 
-### 5. Run the eval suite (optional)
+### 5. Run the evaluation suite (optional)
 
 ```powershell
 # Requires the FastAPI backend running on :8000
+.\tenvv\Scripts\activate
 streamlit run evals/app.py
 ```
 
 ---
 
-## Documentation Index
+## 📚 Documentation Index
 
 | # | Guide | What it covers |
 |---|-------|---------------|
