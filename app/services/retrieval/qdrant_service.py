@@ -25,6 +25,7 @@ def search_enterprise_knowledge(query: str, limit: int = 8):
             query=query_vector,
             limit=limit,
             with_payload=True # JSON
+            # with_vectors=True
         )
 
         results = []
