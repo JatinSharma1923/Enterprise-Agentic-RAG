@@ -51,7 +51,7 @@ def guard(message: str) -> tuple[bool, str | None]:
         result = _rails.generate(messages=[{"role": "user", "content": message}])
 
         # NeMo returns {'role': 'assistant', 'content': '...'} — extract text
-        content = result.get("content", "") if isinstance(result, dict) else str(result)
+        content = result.get("content", "") if isinstance(result, dict) else str(result)  #isinstance(result, dict) → asks: Is result a dictionary?
 
         fired = any(indicator in content for indicator in RAIL_INDICATORS)
 
