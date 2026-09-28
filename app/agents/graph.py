@@ -15,6 +15,7 @@ workflow.add_node("planner", planner_node)
 workflow.add_node("retriever", retrieve_node)
 workflow.add_node("responder", generate_node)
 
+
 # 3. Define the Edges & Routing Logic
 def route_planner(state: AgentState):
     """
@@ -23,6 +24,7 @@ def route_planner(state: AgentState):
     if state["current_query"] == "CONVERSATIONAL":
         return "responder"
     return "retriever"
+
 
 workflow.set_entry_point("planner")
 
@@ -49,5 +51,3 @@ checkpointer = MemorySaver()
 
 # 4. Compile the Graph with Memory
 rag_agent = workflow.compile(checkpointer=checkpointer)
-
-

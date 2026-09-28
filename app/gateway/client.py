@@ -1,4 +1,3 @@
-import logfire
 from portkey_ai import Portkey, createHeaders, PORTKEY_GATEWAY_URL
 from langchain_openai import ChatOpenAI
 
@@ -54,6 +53,7 @@ def get_langchain_llm(feature: str = "rag") -> ChatOpenAI:
             }
         )
     )
+
 
 def extract_cache_status(response) -> str:
     """

@@ -8,7 +8,7 @@ _ranker = None
 
 def _get_ranker() -> Ranker:
     """
-    Initializes the FlashRank engine lazily. 
+    Initializes the FlashRank engine lazily.
     FlashRank uses a local ONNX model (ms-marco-MiniLM-L-6-v2) for ultra-fast reranking.
     """
     global _ranker
@@ -22,12 +22,11 @@ def _get_ranker() -> Ranker:
     return _ranker
 
 
-
 def rerank_documents(query: str, documents: list[str], top_n: int = 5) -> list[str]:
     """
     Refines retrieval results by re-scoring documents against the query semantically.
-    
-    Why FlashRank? 
+
+    Why FlashRank?
     Standard vector search (Cosine Similarity) is fast but mathematically "fuzzy."
     FlashRank uses a Cross-Encoder approach which is much more precise but usually slow.
     FlashRank solves this by using highly optimized, quantized ONNX models locally.
@@ -40,7 +39,7 @@ def rerank_documents(query: str, documents: list[str], top_n: int = 5) -> list[s
 
     try:
         ranker = _get_ranker()
-        
+
         # FlashRank expects a list of dictionaries with 'id' and 'text'
         passages = [
             {"id": i, "text": doc}
@@ -49,7 +48,7 @@ def rerank_documents(query: str, documents: list[str], top_n: int = 5) -> list[s
 
         request = RerankRequest(query=query, passages=passages)
         results = ranker.rerank(request)
-        
+
         # Results are returned sorted by highest semantic score first
         reranked_docs = []
         for res in results[:top_n]:
@@ -58,7 +57,7 @@ def rerank_documents(query: str, documents: list[str], top_n: int = 5) -> list[s
         duration = time.time() - start_time
         top_score = results[0]['score'] if results else 'N/A'
         logfire.info(f"✅ [Reranker] Done in {duration:.2f}s. Top semantic score: {top_score}")
-        
+
         return reranked_docs
 
     except Exception as e:

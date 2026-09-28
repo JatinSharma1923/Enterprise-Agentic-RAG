@@ -10,12 +10,12 @@ load_dotenv()
 logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
 
 # Now safe to import app modules - logfire is already active
-from fastapi import FastAPI, Response
-from app.agents.graph import rag_agent
-from app.guardrails import initialize_rails, guard
+from fastapi import FastAPI, Response  # noqa: E402
+from app.agents.graph import rag_agent  # noqa: E402
+from app.guardrails import initialize_rails, guard  # noqa: E402
 
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel  # noqa: E402
+from typing import Optional  # noqa: E402
 
 
 # Initialize FastAPI
@@ -26,11 +26,12 @@ app = FastAPI(title="Enterprise Agentic RAG API")
 def startup_event():
     initialize_rails()
 
+
 class QueryRequest(BaseModel):
     q: str
     thread_id: Optional[str] = "default_user"
-    
-    
+
+
 @app.get("/")
 def home():
     return {"message": "Enterprise LangGraph RAG API is live."}
@@ -46,8 +47,8 @@ def get_graph_image():
         return Response(content=png_bytes, media_type="image/png")
     except Exception as e:
         return {"error": f"Could not generate graph image: {e}"}
-    
-    
+
+
 @app.post("/query")
 def query(request: QueryRequest):
     """
@@ -63,10 +64,10 @@ def query(request: QueryRequest):
         "plan": ["Start"],
         "status": "Initializing Graph..."
     }
-    
+
     # Configuration for Memory (Thread ID)
     config = {"configurable": {"thread_id": thread_id}}
-    
+
     try:
         # Gate 1: NeMo Guardrails — blocks off-topic, jailbreaks, and handles dialog
         rail_fired, rail_response = guard(q)
@@ -83,7 +84,7 @@ def query(request: QueryRequest):
         # Gate 2: LangGraph RAG pipeline
         # Run the graph synchronously to preserve Logfire context variables
         final_output = rag_agent.invoke(initial_state, config=config)
-        
+
         return {
             "question": q,
             "answer": final_output.get("final_answer"),

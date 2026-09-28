@@ -30,8 +30,6 @@ def initialize_rails() -> None:
 
     _rails = LLMRails(config, llm=guard_llm)
     logfire.info("🛡️ NeMo Guardrails initialised (llama-3.1-8b-instant).")
-    
-    
 
 
 def guard(message: str) -> tuple[bool, str | None]:
@@ -51,7 +49,8 @@ def guard(message: str) -> tuple[bool, str | None]:
         result = _rails.generate(messages=[{"role": "user", "content": message}])
 
         # NeMo returns {'role': 'assistant', 'content': '...'} — extract text
-        content = result.get("content", "") if isinstance(result, dict) else str(result)  #isinstance(result, dict) → asks: Is result a dictionary?
+        # isinstance(result, dict) -> asks: Is result a dictionary?
+        content = result.get("content", "") if isinstance(result, dict) else str(result)
 
         fired = any(indicator in content for indicator in RAIL_INDICATORS)
 

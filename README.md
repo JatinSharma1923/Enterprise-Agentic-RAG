@@ -15,7 +15,7 @@ The **Nexus Document Engine** leverages **LangGraph**, **Portkey LLM Gateway**, 
 - **Gemini Embeddings**: Utilizes Google's `gemini-embedding-2-preview` (3072-dim) via `langchain-google-genai` for deep semantic understanding.
 - **Local Document Parsing**: PDF, HTML, TXT, DOCX, and PPTX files are parsed entirely on-device—no external OCR services required.
 - **Deep Observability**: Full trace nesting and observability with **Pydantic Logfire** and **LangSmith** across every single agent node.
-- **Evaluation Suite**: Includes a RAGAS-powered evaluation pipeline (measuring 6 key metrics) with a dedicated Streamlit demo application.
+- **Automated CI/CD Pipeline**: Full GitHub Actions workflow running syntax validation, flake8 linting, pytest suite, security auditing (bandit + pip-audit), and multi-arch Docker image builds pushed to GitHub Container Registry (GHCR).
 
 ---
 
@@ -76,6 +76,7 @@ graph TD
 | **Document Parsing** | pypdf + pdfplumber (local, no OCR service) |
 | **Observability** | Pydantic Logfire + LangSmith |
 | **Evaluation** | RAGAS + custom Tool Correctness (Jaccard) |
+| **CI/CD & DevOps** | GitHub Actions + Docker + GHCR |
 
 ---
 
