@@ -105,7 +105,11 @@ def process_directory(dir_path: str, source_type: str):
         files = [f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
         logfire.info(f"Found {len(files)} files in {dir_path}.")
         for filename in files:
-            process_file(os.path.join(dir_path, filename), filename, source_type)
+            try:
+                process_file(os.path.join(dir_path, filename), filename, source_type)
+            except Exception as e:
+                logfire.error(f"Failed to process {filename}: {e}")
+
 
 
 def run_universal_ingestion(base_dir: str, explicit_source_type: str = None, wipe: bool = False):
