@@ -22,7 +22,7 @@ class Settings:
     # --- LLM GATEWAY (PORTKEY) ---
     PORTKEY_API_KEY = os.getenv("PORTKEY_API_KEY")
     GROQ_SLUG = "rag"     # primary: @rag/llama-3.3-70b-versatile
-    GROQ_SLUG_2 = "brag"  # fallback: @brag/llama-3.1-8b-instant
+    GROQ_SLUG_2 = "brag"  # fallback: @brag/llama3-8b-8192
 
     # --- OBSERVABILITY ---
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "true")

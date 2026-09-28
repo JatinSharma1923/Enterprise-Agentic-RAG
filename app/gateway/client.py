@@ -5,8 +5,8 @@ from app.config import settings
 
 
 # Production gateway config:
-#   - Fallback: primary @rag/llama-3.3-70b-versatile → @brag/llama-3.1-8b-instant on failure
-#   - Cache: semantic mode (requires Portkey Enterprise — silently falls back to simple on free/starter)
+#   - Fallback: primary @rag/llama-3.3-70b-versatile → @brag/llama3-8b-8192 on failure
+#   - Cache: simple mode
 #   - Retry: 2 attempts on rate limit / server error before triggering the fallback target
 GATEWAY_CONFIG = {
     "strategy": {"mode": "fallback"},
@@ -17,7 +17,7 @@ GATEWAY_CONFIG = {
     },
     "targets": [
         {"override_params": {"model": f"@{settings.GROQ_SLUG}/llama-3.3-70b-versatile"}},
-        {"override_params": {"model": f"@{settings.GROQ_SLUG_2}/llama-3.1-8b-instant"}},
+        {"override_params": {"model": f"@{settings.GROQ_SLUG_2}/llama3-8b-8192"}},
     ]
 }
 
