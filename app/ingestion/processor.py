@@ -152,6 +152,10 @@ def run_universal_ingestion(base_dir: str, explicit_source_type: str = None, wip
                 source_type = explicit_source_type
             else:
                 base_name = os.path.basename(os.path.normpath(base_dir)).lower()
+                '''   os.path.normpath(base_dir) → Cleans up the path string by removing redundant slashes or ./...
+
+                        os.path.basename(...) → extracts the last folder name.
+                '''
                 source_type = (
                     "true" if "true" in base_name
                     else "noisy" if "noisy" in base_name
