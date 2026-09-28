@@ -4,7 +4,13 @@
 # ============================================================
 import logfire
 import os
+import nest_asyncio
 from dotenv import load_dotenv
+
+# Patch the event loop BEFORE any async code loads.
+# NeMo Guardrails calls asyncio.run() internally which conflicts with
+# uvicorn's already-running event loop. nest_asyncio allows nested loops.
+nest_asyncio.apply()
 
 load_dotenv()
 logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
