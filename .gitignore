@@ -69,3 +69,7 @@ Thumbs.db
 commands.md
 *.log
 notebooks/
+
+# GCP deploy artifacts (contain project IDs / SA keys — never commit)
+deploy-gcp.ps1
+gcp-sa-key.json
